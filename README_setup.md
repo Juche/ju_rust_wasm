@@ -20,4 +20,30 @@ https://blog.csdn.net/jjxcsdn/article/details/123058745
 
 ## Project
 
-- Template `cargo generate --git https://github.com/rustwasm/wasm-pack-template`
+### Install Template `cargo generate --git https://github.com/rustwasm/wasm-pack-template`
+
+### Build the Project `wasm-pack build` // 初次会安装编译相关依赖包
+
+### Init Web Application `npm init wasm-app www`
+
+1. `/www/package.json` add dependence
+
+```json
+"dependencies": {  // Add this three lines block!
+  "ju_rust_wasm": "file:../pkg"
+},
+```
+
+2. `/www/index.js` import wasm pack
+
+```js
+import * as wasm from 'ju_rust_wasm';
+
+wasm.greet();
+```
+
+3. Web App install dependencies `pnpm i`
+
+4. Run Serving Locally `pnpm run start`
+
+5. Visit web `http://localhost:8080/`
