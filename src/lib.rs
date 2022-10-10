@@ -9,11 +9,12 @@ use wasm_bindgen::prelude::*;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 }
 
 #[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, ju-rust-wasm!");
+pub fn greet(name: &str) {
+    // alert("Hello, ju-rust-wasm!");
+    alert(&format!("Hello {}! What a nice day!", name));
 }
