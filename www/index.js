@@ -59,6 +59,7 @@ playPauseButton.addEventListener('click', (event) => {
 
 // 绘制循环
 const renderLoop = () => {
+  debugger;
   // 对fps进行渲染
   fps.render();
   // 触发生命周期迭代

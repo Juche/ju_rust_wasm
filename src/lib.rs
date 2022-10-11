@@ -21,6 +21,14 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 //     alert(&format!("Hello {}! What a nice day!", name));
 // }
 
+extern crate web_sys;
+
+macro_rules! log {
+    ( $($t:tt)* ) => {
+        web_sys::console::log_1( &format!($($t)* ).into());
+    };
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Cell {
     Dead = 0,
@@ -131,6 +139,15 @@ impl Universe {
                 let is_cell_alive = self.is_cell_alive(row, col);
                 // 相邻存活数统计
                 let live_neighbors = self.live_neighbor_count(row, col);
+
+                log!(
+                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
+                    row,
+                    col,
+                    is_cell_alive,
+                    live_neighbors
+                );
+
                 // 状态机
                 let next_cell = match (is_cell_alive, live_neighbors) {
                     // 1. 任何一个活细胞相邻活细胞数量少于2个将在下一个周期死亡
@@ -145,6 +162,9 @@ impl Universe {
                     _ => Cell::Dead,
                 };
                 let idx = self.get_index(row, col);
+
+                log!("    it becomes {:?}", next_cell);
+
                 next[idx] = next_cell;
             }
         }
