@@ -9,12 +9,17 @@ const GRID_COLOR = '#CCCCCC';
 // 设置细胞死亡颜色
 const DEAD_COLOR = '#FFFFFF';
 // 设置细胞存活颜色
-const ALIVE_COLOR = '#000000';
+const ALIVE_COLOR = '#ff9';
 
 // 实例化世界，并获取世界的宽高
-const universe = Universe.new();
+const universe = Universe.new(256, 256);
+console.log(`🚀 ~ universe`, universe);
+// universe.set_width(128);
+// universe.set_height(128);
 const width = universe.width();
+console.log(`🚀 ~ width`, width);
 const height = universe.height();
+console.log(`🚀 ~ height`, height);
 
 // 操作DOM创建一个画布
 // 并设置一个略大于所有细胞的宽高，用于包裹细胞

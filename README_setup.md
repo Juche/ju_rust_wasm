@@ -47,3 +47,7 @@ wasm.greet();
 4. Run Serving Locally `pnpm run start`
 
 5. Visit web `http://localhost:8080/`
+
+### Test
+
+`wasm-pack test --chrome --headless`
