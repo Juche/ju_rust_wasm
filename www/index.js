@@ -12,7 +12,7 @@ const DEAD_COLOR = '#FFFFFF';
 const ALIVE_COLOR = '#ff9';
 
 // 实例化世界，并获取世界的宽高
-const universe = Universe.new(256, 256);
+const universe = Universe.new(128, 128);
 console.log(`🚀 ~ universe`, universe);
 // universe.set_width(128);
 // universe.set_height(128);
@@ -36,6 +36,7 @@ const isPaused = () => {
 };
 
 const playPauseButton = document.getElementById('play-pause');
+const nextTickButton = document.getElementById('next-tick');
 
 const play = () => {
   playPauseButton.textContent = '⏸';
@@ -48,6 +49,10 @@ const pause = () => {
   animationId = null;
 };
 
+nextTickButton.addEventListener('click', (event) => {
+  renderTick();
+});
+
 playPauseButton.addEventListener('click', (event) => {
   if (isPaused()) {
     play();
@@ -57,9 +62,9 @@ playPauseButton.addEventListener('click', (event) => {
 });
 // 暂停功能的实现结束====
 
-// 绘制循环
-const renderLoop = () => {
-  debugger;
+// 绘制一次迭代
+const renderTick = () => {
+  // debugger;
   // 对fps进行渲染
   fps.render();
   // 触发生命周期迭代
@@ -68,6 +73,11 @@ const renderLoop = () => {
   drawGrid();
   // 绘制细胞存活状况
   drawCells();
+};
+
+// 绘制循环
+const renderLoop = () => {
+  renderTick();
 
   animationId = requestAnimationFrame(renderLoop);
 };
@@ -171,4 +181,5 @@ const fps = new (class {
 // 手动调用第一次迭代
 drawGrid();
 drawCells();
-play();
+// play();
+// playPauseButton.textContent = '▶';
