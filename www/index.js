@@ -5,15 +5,30 @@ import { Universe } from 'ju-rust-wasm';
 // 设置每个细胞的大小
 const CELL_SIZE = 5; // px
 // 设置世界格子边框的颜色
-const GRID_COLOR = '#CCCCCC';
+const GRID_COLOR = '#000';
 // 设置细胞死亡颜色
 const DEAD_COLOR = '#FFFFFF';
 // 设置细胞存活颜色
 const ALIVE_COLOR = '#000';
 
 // 实例化世界，并获取世界的宽高
-const universe = Universe.new(149, 149);
-console.log(`🚀 ~ universe`, universe);
+let universe;
+function createdUniverse() {
+  const count = rowCount.value;
+  if (!count) {
+    alert('请输入行/列数量!');
+    return;
+  }
+  universe = Universe.new(count, count);
+  console.log(`🚀 ~ universe`, universe);
+  drawGrid();
+  drawCells();
+}
+
+document.getElementById('create-universe').addEventListener('click', () => {
+  createdUniverse();
+});
+
 // universe.set_width(128);
 // universe.set_height(128);
 const width = universe.width();
@@ -66,7 +81,7 @@ playPauseButton.addEventListener('click', (event) => {
 const renderTick = () => {
   // debugger;
   // 对fps进行渲染
-  fps.render();
+  // fps.render();
   // 触发生命周期迭代
   universe.tick();
   // 绘制世界格子
@@ -179,12 +194,10 @@ const fps = new (class {
 })();
 
 // 手动调用第一次迭代
-drawGrid();
-drawCells();
+// drawGrid();
+// drawCells();
 // play();
 // playPauseButton.textContent = '▶';
-
-// const canvas = document.getElementById('game-of-life-canvas');
 
 canvas.addEventListener('click', (event) => {
   const boundingRect = canvas.getBoundingClientRect();
