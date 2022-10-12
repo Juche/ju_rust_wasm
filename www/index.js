@@ -9,7 +9,7 @@ const GRID_COLOR = '#CCCCCC';
 // 设置细胞死亡颜色
 const DEAD_COLOR = '#FFFFFF';
 // 设置细胞存活颜色
-const ALIVE_COLOR = '#ff9';
+const ALIVE_COLOR = '#000';
 
 // 实例化世界，并获取世界的宽高
 const universe = Universe.new(128, 128);
@@ -183,3 +183,23 @@ drawGrid();
 drawCells();
 // play();
 // playPauseButton.textContent = '▶';
+
+// const canvas = document.getElementById('game-of-life-canvas');
+
+canvas.addEventListener('click', (event) => {
+  const boundingRect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / boundingRect.width;
+  const scaleY = canvas.height / boundingRect.height;
+
+  const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
+  const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+
+  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
+  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
+  universe.toggle_cell(row, col);
+
+  drawGrid();
+  drawCells();
+});
