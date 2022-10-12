@@ -12,7 +12,7 @@ const DEAD_COLOR = '#FFFFFF';
 const ALIVE_COLOR = '#000';
 
 // 实例化世界，并获取世界的宽高
-const universe = Universe.new(128, 128);
+const universe = Universe.new(149, 149);
 console.log(`🚀 ~ universe`, universe);
 // universe.set_width(128);
 // universe.set_height(128);
@@ -168,13 +168,13 @@ const fps = new (class {
     let mean = sum / this.frames.length;
 
     // Render the statistics.
-    this.fps.textContent = `
-      Frames per Second:
-      latest = ${Math.round(fps)}
-      avg of last 100 = ${Math.round(mean)}
-      min of last 100 = ${Math.round(min)}
-      max of last 100 = ${Math.round(max)}
-      `.trim();
+    // this.fps.textContent = `
+    //   Frames per Second:
+    //   latest = ${Math.round(fps)}
+    //   avg of last 100 = ${Math.round(mean)}
+    //   min of last 100 = ${Math.round(min)}
+    //   max of last 100 = ${Math.round(max)}
+    //   `.trim();
   }
 })();
 

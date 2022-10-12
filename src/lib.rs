@@ -21,12 +21,12 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 //     alert(&format!("Hello {}! What a nice day!", name));
 // }
 
-// extern crate web_sys;
-// macro_rules! log {
-//     ( $($t:tt)* ) => {
-//         web_sys::console::log_1( &format!($($t)* ).into());
-//     };
-// }
+extern crate web_sys;
+macro_rules! log {
+    ( $($t:tt)* ) => {
+        web_sys::console::log_1( &format!($($t)* ).into());
+    };
+}
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Cell {
@@ -58,13 +58,20 @@ impl Universe {
         // let (width, height) = (128, 128);
         // let width = 128;
         // let height = 128;
+        let center_row_start_idx = width * (height - 1) / 2;
+        let center_row_end_idx = center_row_start_idx + width;
+        let center_col_idx = (width - 1) / 2;
+
         let cells = (0..width * height)
             .map(|i| {
+                log!("{},", i);
                 // if i % 1 == 0 || i % 3 == 0 || i % 5 == 0 || i % 7 == 0 {
-                if i % 1 == 2 || i % 7 == 0 {
-                    Cell::Dead
-                } else {
+                if i % width == center_col_idx
+                    || (i >= center_row_start_idx && i < center_row_end_idx)
+                {
                     Cell::Alive
+                } else {
+                    Cell::Dead
                 }
             })
             .collect();
