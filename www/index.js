@@ -3,45 +3,19 @@
 import { Universe } from 'ju-rust-wasm';
 
 // 设置每个细胞的大小
-const CELL_SIZE = 5; // px
+const CELL_SIZE = 1; // px
 // 设置世界格子边框的颜色
-const GRID_COLOR = '#000';
+const GRID_COLOR = '#fff';
 // 设置细胞死亡颜色
-const DEAD_COLOR = '#FFFFFF';
+const DEAD_COLOR = '#fff';
 // 设置细胞存活颜色
 const ALIVE_COLOR = '#000';
 
 // 实例化世界，并获取世界的宽高
-let universe;
-function createdUniverse() {
-  const count = rowCount.value;
-  if (!count) {
-    alert('请输入行/列数量!');
-    return;
-  }
-  universe = Universe.new(count, count);
-  console.log(`🚀 ~ universe`, universe);
-  drawGrid();
-  drawCells();
-}
-
-document.getElementById('create-universe').addEventListener('click', () => {
-  createdUniverse();
-});
-
-// universe.set_width(128);
-// universe.set_height(128);
-const width = universe.width();
-console.log(`🚀 ~ width`, width);
-const height = universe.height();
-console.log(`🚀 ~ height`, height);
+let universe, width, height;
 
 // 操作DOM创建一个画布
-// 并设置一个略大于所有细胞的宽高，用于包裹细胞
 const canvas = document.getElementById('game-of-life-canvas');
-canvas.height = (CELL_SIZE + 1) * height + 1;
-canvas.width = (CELL_SIZE + 1) * width + 1;
-
 const ctx = canvas.getContext('2d');
 // 暂停功能的实现开始====
 let animationId = null;
@@ -76,26 +50,6 @@ playPauseButton.addEventListener('click', (event) => {
   }
 });
 // 暂停功能的实现结束====
-
-// 绘制一次迭代
-const renderTick = () => {
-  // debugger;
-  // 对fps进行渲染
-  // fps.render();
-  // 触发生命周期迭代
-  universe.tick();
-  // 绘制世界格子
-  drawGrid();
-  // 绘制细胞存活状况
-  drawCells();
-};
-
-// 绘制循环
-const renderLoop = () => {
-  renderTick();
-
-  animationId = requestAnimationFrame(renderLoop);
-};
 
 // 绘制格子的具体实现
 const drawGrid = () => {
@@ -193,11 +147,59 @@ const fps = new (class {
   }
 })();
 
+// 绘制一次迭代
+const renderTick = () => {
+  // debugger;
+  // 对fps进行渲染
+  // fps.render();
+  // 触发生命周期迭代
+  universe.tick();
+  // 绘制世界格子
+  drawGrid();
+  // 绘制细胞存活状况
+  drawCells();
+};
+
+// 绘制循环
+const renderLoop = () => {
+  renderTick();
+
+  animationId = requestAnimationFrame(renderLoop);
+};
+
 // 手动调用第一次迭代
 // drawGrid();
 // drawCells();
 // play();
 // playPauseButton.textContent = '▶';
+
+function createdUniverse() {
+  // debugger;
+  const count = rowCount.value;
+  if (!count) {
+    alert('请输入行/列数量!');
+    return;
+  }
+  universe = Universe.new(count, count);
+  // console.log(`🚀 ~ universe`, universe);
+  // universe.set_width(128);
+  // universe.set_height(128);
+  width = universe.width();
+  height = universe.height();
+  console.log(`🚀 ~ width`, width);
+  console.log(`🚀 ~ height`, height);
+
+  // 并设置一个略大于所有细胞的宽高，用于包裹细胞
+  canvas.height = (CELL_SIZE + 1) * height + 1;
+  canvas.width = (CELL_SIZE + 1) * width + 1;
+
+  drawGrid();
+  drawCells();
+}
+
+document.getElementById('create-universe').addEventListener('click', () => {
+  createdUniverse();
+});
 
 canvas.addEventListener('click', (event) => {
   const boundingRect = canvas.getBoundingClientRect();
