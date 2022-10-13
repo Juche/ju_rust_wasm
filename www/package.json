@@ -1,5 +1,5 @@
 {
-  "name": "create-wasm-app",
+  "name": "life_game",
   "version": "0.1.0",
   "description": "create an app to consume rust-generated wasm packages",
   "main": "index.js",
@@ -32,8 +32,5 @@
     "webpack": "^4.29.3",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
-  },
-  "dependencies": {
-    "ju-rust-wasm": "file:..\\pkg"
   }
 }

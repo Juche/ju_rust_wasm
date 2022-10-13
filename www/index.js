@@ -1,6 +1,7 @@
 // import * as wasm from 'ju-rust-wasm';
 // import { greet, Universe } from 'ju-rust-wasm';
-import { Universe } from 'ju-rust-wasm';
+// import { Universe } from 'ju-rust-wasm';
+import { Universe } from '@pack/life_game';
 
 // 设置每个细胞的大小
 const CELL_SIZE = 1; // px
