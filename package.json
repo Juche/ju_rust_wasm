@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "game-start": "pnpm -F life_game start",
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "game-start": "pnpm -F life_game start",
+    "vite-lit": "pnpm -F vite-lit-ts dev",
+    "vite-react": "pnpm -F vite-react-ts dev",
+    "vite-svelte": "pnpm -F vite-svelte-ts dev",
+    "vite-vanilla": "pnpm -F vite-vanilla-ts dev",
+    "vite-vue": "pnpm -F vite-vue-ts dev",
     "wasm-build": "pnpm -F @pack/life_game build"
   },
   "keywords": [],
@@ -14,5 +19,9 @@
   "license": "ISC",
   "dependencies": {
     "@pack/life_game": "workspace:^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
   }
 }
