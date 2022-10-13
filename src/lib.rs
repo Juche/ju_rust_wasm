@@ -187,17 +187,18 @@ impl Universe {
 
         self.cells = next;
     }
+
     pub fn toggle_cell(&mut self, row: u32, column: u32) {
         let idx = self.get_index(row, column);
         self.cells[idx].toggle();
     }
 
-    pub fn empty_cells(&mut self, cells: &[(u32, u32)]) {
-        for (row, col) in cells.iter().cloned() {
-            let idx = self.get_index(row, col);
-            self.cells[idx] = Cell::Alive;
-        }
-    }
+    // pub fn empty_cells(&mut self, cells: &[(u32, u32)]) {
+    //     for (row, col) in cells.iter().cloned() {
+    //         let idx = self.get_index(row, col);
+    //         self.cells[idx] = Cell::Alive;
+    //     }
+    // }
 }
 
 impl Universe {
