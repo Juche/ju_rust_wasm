@@ -1,0 +1,21 @@
+{
+  "name": "@pack/life_game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pkg/ju_rust_wasm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "pkg/ju_rust_wasm_bg.wasm",
+    "pkg/ju_rust_wasm.js",
+    "pkg/ju_rust_wasm_bg.js",
+    "pkg/ju_rust_wasm.d.ts"
+  ],
+  "module": "pkg/ju_rust_wasm.js",
+  "types": "pkg/ju_rust_wasm.d.ts",
+  "sideEffects": false
+}

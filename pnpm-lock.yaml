@@ -6,9 +6,12 @@ importers:
     specifiers:
       '@pack/life_game': workspace:^1.0.0
     dependencies:
-      '@pack/life_game': link:pkg
+      '@pack/life_game': link:packages/life_game
 
-  www:
+  packages/life_game:
+    specifiers: {}
+
+  www/life_game:
     specifiers:
       copy-webpack-plugin: ^5.0.0
       hello-wasm-pack: ^0.1.0
