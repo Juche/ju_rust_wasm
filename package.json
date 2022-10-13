@@ -6,7 +6,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "game": "pnpm -F life_game start"
+    "game-start": "pnpm -F life_game start",
+    "wasm-build": "pnpm -F @pack/life_game build"
   },
   "keywords": [],
   "author": "",
