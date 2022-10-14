@@ -11,12 +11,12 @@ app.innerHTML = `
   <div class="op-group">
   <!-- /* ▶⏸⏭ */ -->
   <input id="rowCount" value="" type="number" placeholder="输入行列数" />
-  <button id="create-universe">创建/更新宇宙</button>
-  <button id="play-pause">▶</button>
-  <button id="next-tick">⏭</button>
+  <button id="createUniverse">创建/更新宇宙</button>
+  <button id="playPause">▶</button>
+  <button id="nextTick">⏭</button>
   </div>
   <!-- <div id="fps"></div> -->
-  <canvas id="game-of-life-canvas"></canvas>
+  <canvas id="gameCanvas"></canvas>
   `;
 
 // 设置每个细胞的大小
@@ -29,20 +29,20 @@ const DEAD_COLOR = '#fff';
 const ALIVE_COLOR = '#000';
 
 // 实例化世界，并获取世界的宽高
-let universe, width, height;
+let universe: Universe, width: number, height: number;
 
 // 操作DOM创建一个画布
-const canvas = document.getElementById('game-of-life-canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D;
 // 暂停功能的实现开始====
-let animationId = null;
+let animationId: number | null = null;
 
 const isPaused = () => {
   return animationId === null;
 };
 
-const playPauseButton = document.getElementById('play-pause');
-const nextTickButton = document.getElementById('next-tick');
+const playPauseButton = document.getElementById('playPause') as HTMLButtonElement;
+const nextTickButton = document.getElementById('nextTick') as HTMLButtonElement;
 
 const play = () => {
   playPauseButton.textContent = '⏸';
@@ -51,15 +51,15 @@ const play = () => {
 
 const pause = () => {
   playPauseButton.textContent = '▶';
-  cancelAnimationFrame(animationId);
+  cancelAnimationFrame(animationId as number);
   animationId = null;
 };
 
-nextTickButton.addEventListener('click', (event) => {
+nextTickButton?.addEventListener('click', () => {
   renderTick();
 });
 
-playPauseButton.addEventListener('click', (event) => {
+playPauseButton?.addEventListener('click', () => {
   if (isPaused()) {
     play();
   } else {
@@ -121,48 +121,48 @@ const drawCells = () => {
 };
 
 // fps的具体实现
-const fps = new (class {
-  constructor() {
-    this.fps = document.getElementById('fps');
-    this.frames = [];
-    this.lastFrameTimeStamp = performance.now();
-  }
+// const fps = new (class {
+//   constructor() {
+//     this.fps = document.getElementById('fps');
+//     this.frames = [];
+//     this.lastFrameTimeStamp = performance.now();
+//   }
 
-  render() {
-    // Convert the delta time since the last frame render into a measure
-    // of frames per second.
-    const now = performance.now();
-    const delta = now - this.lastFrameTimeStamp;
-    this.lastFrameTimeStamp = now;
-    const fps = (1 / delta) * 1000;
+//   render() {
+//     // Convert the delta time since the last frame render into a measure
+//     // of frames per second.
+//     const now = performance.now();
+//     const delta = now - this.lastFrameTimeStamp;
+//     this.lastFrameTimeStamp = now;
+//     const fps = (1 / delta) * 1000;
 
-    // Save only the latest 100 timings.
-    this.frames.push(fps);
-    if (this.frames.length > 100) {
-      this.frames.shift();
-    }
+//     // Save only the latest 100 timings.
+//     this.frames.push(fps);
+//     if (this.frames.length > 100) {
+//       this.frames.shift();
+//     }
 
-    // Find the max, min, and mean of our 100 latest timings.
-    let min = Infinity;
-    let max = -Infinity;
-    let sum = 0;
-    for (let i = 0; i < this.frames.length; i++) {
-      sum += this.frames[i];
-      min = Math.min(this.frames[i], min);
-      max = Math.max(this.frames[i], max);
-    }
-    let mean = sum / this.frames.length;
+//     // Find the max, min, and mean of our 100 latest timings.
+//     let min = Infinity;
+//     let max = -Infinity;
+//     let sum = 0;
+//     for (let i = 0; i < this.frames.length; i++) {
+//       sum += this.frames[i];
+//       min = Math.min(this.frames[i], min);
+//       max = Math.max(this.frames[i], max);
+//     }
+//     let mean = sum / this.frames.length;
 
-    // Render the statistics.
-    // this.fps.textContent = `
-    //   Frames per Second:
-    //   latest = ${Math.round(fps)}
-    //   avg of last 100 = ${Math.round(mean)}
-    //   min of last 100 = ${Math.round(min)}
-    //   max of last 100 = ${Math.round(max)}
-    //   `.trim();
-  }
-})();
+//     // Render the statistics.
+//     // this.fps.textContent = `
+//     //   Frames per Second:
+//     //   latest = ${Math.round(fps)}
+//     //   avg of last 100 = ${Math.round(mean)}
+//     //   min of last 100 = ${Math.round(min)}
+//     //   max of last 100 = ${Math.round(max)}
+//     //   `.trim();
+//   }
+// })();
 
 // 绘制一次迭代
 const renderTick = () => {
@@ -190,9 +190,10 @@ const renderLoop = () => {
 // play();
 // playPauseButton.textContent = '▶';
 
+const rowCount = document.getElementById('rowCount') as HTMLInputElement;
 function createdUniverse() {
   // debugger;
-  const count = rowCount.value;
+  const count = Number(rowCount.value);
   if (!count) {
     alert('请输入行/列数量!');
     return;
@@ -214,11 +215,11 @@ function createdUniverse() {
   drawCells();
 }
 
-document.getElementById('create-universe').addEventListener('click', () => {
+document.getElementById('createUniverse')?.addEventListener('click', () => {
   createdUniverse();
 });
 
-canvas.addEventListener('click', (event) => {
+canvas?.addEventListener('click', (event) => {
   const boundingRect = canvas.getBoundingClientRect();
 
   const scaleX = canvas.width / boundingRect.width;
