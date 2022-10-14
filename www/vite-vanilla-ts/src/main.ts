@@ -1,6 +1,9 @@
 import './style.css';
-import { Universe } from '@pack/life_game';
+import init, { Universe } from '@pack/life_game';
 
+init.then(() => {
+  //
+});
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
 app.innerHTML = `
