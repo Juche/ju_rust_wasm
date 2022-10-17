@@ -1,8 +1,11 @@
 import './style.css';
 import init, { Universe } from '@pack/life_game';
+// import { Universe } from '@pack/life_game';
 
+// import('@pack/life_game/pkg/ju_rust_wasm.js').then(({ Universe }) => {
 init().then(() => {
   // alert('Welcome to Universe');
+  // debugger;
   const app = document.querySelector<HTMLDivElement>('#app')!;
 
   app.innerHTML = `

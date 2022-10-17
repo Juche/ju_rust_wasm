@@ -12,7 +12,9 @@
     "vite-svelte": "pnpm -F vite-svelte-ts dev",
     "vite-vanilla": "pnpm -F vite-vanilla-ts dev",
     "vite-vue": "pnpm -F vite-vue-ts dev",
-    "wasm-build": "pnpm -F @pack/life_game build"
+    "wasm-build": "pnpm -F @pack/life_game build",
+    "wasm-build-web": "pnpm -F @pack/life_game build-web",
+    "wasm-build-bundler": "pnpm -F @pack/life_game build-bundler"
   },
   "keywords": [],
   "author": "",
