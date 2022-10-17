@@ -24,6 +24,21 @@ https://blog.csdn.net/jjxcsdn/article/details/123058745
 
 ### Build the Project `wasm-pack build` // 初次会安装编译相关依赖包
 
+```sh
+# You can cause it to display even more information by using --verbose, or you can silence all stdout by using --quiet.
+# You can also use --log-level to have fine-grained control over wasm-pack's log output:
+# --log-level info is the default, it causes all messages to be logged.
+# --log-level warn causes warnings and errors to be displayed, but not info.
+# --log-level error causes only errors to be displayed.
+
+wasm-pack --log-level error build
+wasm-pack --quiet build
+wasm-pack --verbose build
+```
+
+- `wasm-pack build --target web` 编译成 web pkg
+- `wasm-pack build --target bundler` 编译成 npm pkg
+
 ### Init Web Application `npm init wasm-app www`
 
 1. `/www/package.json` add dependence
@@ -51,6 +66,12 @@ wasm.greet();
 ### Test
 
 `wasm-pack test --chrome --headless`
+
+### 使用 vite 脚手架
+
+- vite webassembly 插件 `vite-plugin-rsw` => 暂时没有使用(通过 `pnpm mono repo` 模式替代)
+
+---
 
 ## Git 提交规范
 
