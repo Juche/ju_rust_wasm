@@ -1,5 +1,11 @@
 # Rust WebAssembly
 
+## 参考
+
+https://www.wasm.com.cn/
+https://developer.mozilla.org/en-US/docs/WebAssembly
+https://tauri.app/
+
 ## Setup Toolchain
 
 - Rust toolchain => including rustup, rustc, and cargo.
@@ -22,7 +28,9 @@ https://blog.csdn.net/jjxcsdn/article/details/123058745
 
 ### Install Template `cargo generate --git https://github.com/rustwasm/wasm-pack-template`
 
-### Build the Project `wasm-pack build` // 初次会安装编译相关依赖包
+### Build the Project `wasm-pack build`
+
+> 初次会安装编译相关依赖包
 
 ```sh
 # You can cause it to display even more information by using --verbose, or you can silence all stdout by using --quiet.
@@ -35,6 +43,16 @@ wasm-pack --log-level error build
 wasm-pack --quiet build
 wasm-pack --verbose build
 ```
+
+The methods of deployment and integration here are primarily tied to the --target flag.
+
+| Value      | Summary                                        |
+| :--------- | :--------------------------------------------- |
+| bundler    | Suitable for loading in bundlers like Webpack  |
+| web        | Directly loadable in a web browser             |
+| nodejs     | Loadable via require as a Node.js module       |
+| deno       | Loadable using imports from Deno modules       |
+| no-modules | Like web, but older and doesn't use ES modules |
 
 - `wasm-pack build --target web` 编译成 web pkg
 - `wasm-pack build --target bundler` 编译成 npm pkg
