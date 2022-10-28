@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/game.css';
 
-function Square(props) {
+function Square(props: { onCLick: () => void; value: null | string }) {
   return (
     <button className='square' onClick={() => props.onCLick()}>
       {props.value}
@@ -9,7 +9,7 @@ function Square(props) {
   );
 }
 
-function calcWinner(squares) {
+function calcWinner(squares: any[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -32,51 +32,38 @@ function calcWinner(squares) {
   return null;
 }
 
-class Board extends React.Component {
-  renderSquare(i) {
+interface BoardProps {
+  current: any;
+  onClick: any;
+}
+
+class Board extends React.Component<BoardProps> {
+  renderSquare(i: number) {
     return <Square value={this.props.current[i]} onCLick={() => this.props.onClick(i)}></Square>;
   }
 
   render() {
     const n = 3;
     const line = Array(n).fill(null);
+
     const boardDoms = line.map((item, index) => {
       const row = line.map((item, _index) => this.renderSquare(index * n + _index));
-
-      return (
-        <div className='boader-row'>
-          {/* {this.renderSquare(index * 3)}
-            {this.renderSquare(index * 3 + 1)}
-            {this.renderSquare(index * 3 + 2)} */}
-          {row}
-        </div>
-      );
+      return <div className='boader-row'>{row}</div>;
     });
-    return (
-      <div className='boader-ctn'>
-        {boardDoms}
-        {/* <div className='boader-row'>
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className='boader-row'>
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className='boader-row'>
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div> */}
-      </div>
-    );
+
+    return <div className='boader-ctn'>{boardDoms}</div>;
   }
 }
 
-class Game extends React.Component {
-  constructor(props) {
+interface GameProps {}
+interface GameState {
+  history: any;
+  step: any;
+  xIsNext: any;
+}
+
+class Game extends React.Component<GameProps, GameState> {
+  constructor(props: {} | Readonly<{}>) {
     super(props);
     this.state = {
       history: [
@@ -89,7 +76,7 @@ class Game extends React.Component {
     };
   }
 
-  handleClick(i) {
+  handleClick(i: string | number) {
     const { history, step } = this.state;
     const squares = history[step].squares.slice();
     const winner = calcWinner(squares);
@@ -99,7 +86,7 @@ class Game extends React.Component {
     this.setState({ history: _history, step: step + 1, xIsNext: !this.state.xIsNext });
   }
 
-  showRecord(i) {
+  showRecord(i: number) {
     this.setState({ step: i, xIsNext: i % 2 });
   }
 
@@ -119,7 +106,7 @@ class Game extends React.Component {
     const { history, step } = this.state;
     const squares = history[step].squares;
 
-    const historyList = this.state.history.map((item, index) => {
+    const historyList = this.state.history.map((item: any, index: number) => {
       return (
         <li className='history' key={index} onClick={() => this.showRecord(index)}>
           <button>记录{index}</button>
@@ -138,7 +125,7 @@ class Game extends React.Component {
     return (
       <div className='game'>
         <div className='game-boader'>
-          <Board current={squares} onClick={(i) => this.handleClick(i)} />
+          <Board current={squares} onClick={(i: any) => this.handleClick(i)} />
         </div>
         <div className='game-info'>
           <div className='status'>{status}</div>
