@@ -7,28 +7,37 @@ import '../styles/game.css';
 
 const step = 0;
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   value: null,
+  //   // };
+  // }
 
   render() {
     return (
-      <button
-        className='square'
-        onClick={() => this.setState({ value: this.props.value % 2 ? 'X' : 'O' })}
-      >
-        {this.state.value}
+      <button className='square' onClick={() => this.props.onCLick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+  }
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = i % 2 ? 'X' : 'O';
+    this.setState({ squares: squares });
+  }
+
   renderSquare(i) {
-    return <Square value={i}></Square>;
+    return <Square value={this.state.squares[i]} onCLick={() => this.handleClick(i)}></Square>;
   }
 
   render() {
