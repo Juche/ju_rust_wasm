@@ -30,6 +30,48 @@ function Square(props) {
   );
 }
 
+function calcWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+
+    if (squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+
+  return null;
+}
+
+const history = [
+  // Before first move
+  {
+    squares: [null, null, null, null, null, null, null, null, null],
+  },
+  // After first move
+  {
+    squares: [null, null, null, null, 'X', null, null, null, null],
+  },
+  // After second move
+  {
+    squares: [null, null, null, null, 'X', null, null, null, 'O'],
+  },
+  // After third move
+  {
+    squares: [null, 'X', null, null, 'X', null, null, null, 'O'],
+  },
+];
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -40,8 +82,14 @@ class Board extends React.Component {
   }
   handleClick(i) {
     const squares = this.state.squares.slice();
+    const winner = calcWinner(squares);
+    if (winner || squares[i]) return;
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
+  }
+
+  showRecord(i) {
+    this.setState({ squares: history[i].squares });
   }
 
   renderSquare(i) {
@@ -49,10 +97,25 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = `Next Player ${this.state.xIsNext ? 'X' : 'O'}`;
+    const winner = calcWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = `Winner is ${winner}`;
+    } else {
+      status = `Next Player ${this.state.xIsNext ? 'X' : 'O'}`;
+    }
     return (
       <div className='boader-ctn'>
         <div className='status'>{status}</div>
+        <div className='history' onClick={() => this.showRecord(1)}>
+          记录1
+        </div>
+        <div className='history' onClick={() => this.showRecord(2)}>
+          记录2
+        </div>
+        <div className='history' onClick={() => this.showRecord(3)}>
+          记录3
+        </div>
         <div className='boader-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
