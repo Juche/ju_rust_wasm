@@ -5,11 +5,22 @@ import '../styles/game.css';
 //   return <h1>Juching Test React</h1>;
 // }
 
+const step = 0;
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className='square' onClick={() => console.log(this.props.value)}>
-        {this.props.value}
+      <button
+        className='square'
+        onClick={() => this.setState({ value: this.props.value % 2 ? 'X' : 'O' })}
+      >
+        {this.state.value}
       </button>
     );
   }
