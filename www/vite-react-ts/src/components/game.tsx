@@ -38,9 +38,24 @@ class Board extends React.Component {
   }
 
   render() {
+    const n = 3;
+    const line = Array(n).fill(null);
+    const boardDoms = line.map((item, index) => {
+      const row = line.map((item, _index) => this.renderSquare(index * n + _index));
+
+      return (
+        <div className='boader-row'>
+          {/* {this.renderSquare(index * 3)}
+            {this.renderSquare(index * 3 + 1)}
+            {this.renderSquare(index * 3 + 2)} */}
+          {row}
+        </div>
+      );
+    });
     return (
       <div className='boader-ctn'>
-        <div className='boader-row'>
+        {boardDoms}
+        {/* <div className='boader-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
@@ -54,7 +69,7 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -69,25 +84,25 @@ class Game extends React.Component {
           squares: Array(9).fill(null),
         },
       ],
-      current: 0,
+      step: 0,
       xIsNext: true,
     };
   }
 
   handleClick(i) {
-    const { history, current } = this.state;
-    const squares = history[current].squares.slice();
+    const { history, step } = this.state;
+    const squares = history[step].squares.slice();
     const winner = calcWinner(squares);
     if (winner || squares[i]) return;
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     const _history = history.concat({ squares: squares });
-    this.setState({ history: _history, current: current + 1, xIsNext: !this.state.xIsNext });
+    this.setState({ history: _history, step: step + 1, xIsNext: !this.state.xIsNext });
   }
 
   showRecord(i) {
-    this.setState({ current: i });
+    this.setState({ step: i, xIsNext: i % 2 });
   }
-  实现;
+
   restartGame() {
     this.setState({
       history: [
@@ -95,19 +110,19 @@ class Game extends React.Component {
           squares: Array(9).fill(null),
         },
       ],
-      current: 0,
+      step: 0,
       xIsNext: true,
     });
   }
 
   render() {
-    const { history, current } = this.state;
-    const squares = history[current].squares;
+    const { history, step } = this.state;
+    const squares = history[step].squares;
 
     const historyList = this.state.history.map((item, index) => {
       return (
         <li className='history' key={index} onClick={() => this.showRecord(index)}>
-          记录{index}
+          <button>记录{index}</button>
         </li>
       );
     });
