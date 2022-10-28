@@ -1,27 +1,6 @@
 import React from 'react';
 import '../styles/game.css';
 
-// export default function Game() {
-//   return <h1>Juching Test React</h1>;
-// }
-
-// class Square extends React.Component {
-//   // constructor(props) {
-//   //   super(props);
-//   //   // this.state = {
-//   //   //   value: null,
-//   //   // };
-//   // }
-
-//   render() {
-//     return (
-//       <button className='square' onClick={() => this.props.onCLick()}>
-//         {this.props.value}
-//       </button>
-//     );
-//   }
-// }
-
 function Square(props) {
   return (
     <button className='square' onClick={() => props.onCLick()}>
@@ -53,49 +32,14 @@ function calcWinner(squares) {
   return null;
 }
 
-const history = [
-  // Before first move
-  {
-    squares: [null, null, null, null, null, null, null, null, null],
-  },
-  // After first move
-  {
-    squares: [null, null, null, null, 'X', null, null, null, null],
-  },
-  // After second move
-  {
-    squares: [null, null, null, null, 'X', null, null, null, 'O'],
-  },
-  // After third move
-  {
-    squares: [null, 'X', null, null, 'X', null, null, null, 'O'],
-  },
-];
-
 class Board extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     squares: Array(9).fill(null),
-  //     xIsNext: true,
-  //   };
-  // }
-
   renderSquare(i) {
     return <Square value={this.props.current[i]} onCLick={() => this.props.onClick(i)}></Square>;
   }
 
   render() {
-    // const winner = calcWinner(this.state.squares);
-    // let status;
-    // if (winner) {
-    //   status = `Winner is ${winner}`;
-    // } else {
-    //   status = `Next Player ${this.state.xIsNext ? 'X' : 'O'}`;
-    // }
     return (
       <div className='boader-ctn'>
-        {/* <div className='status'>{status}</div> */}
         <div className='boader-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -130,10 +74,6 @@ class Game extends React.Component {
     };
   }
 
-  showRecord(i) {
-    this.setState({ squares: history[i].squares });
-  }
-
   handleClick(i) {
     const { history, current } = this.state;
     const squares = history[current].squares.slice();
@@ -144,10 +84,35 @@ class Game extends React.Component {
     this.setState({ history: _history, current: current + 1, xIsNext: !this.state.xIsNext });
   }
 
+  showRecord(i) {
+    this.setState({ current: i });
+  }
+  实现;
+  restartGame() {
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      current: 0,
+      xIsNext: true,
+    });
+  }
+
   render() {
     const { history, current } = this.state;
+    const squares = history[current].squares;
 
-    const winner = calcWinner(history[current].squares);
+    const historyList = this.state.history.map((item, index) => {
+      return (
+        <li className='history' key={index} onClick={() => this.showRecord(index)}>
+          记录{index}
+        </li>
+      );
+    });
+
+    const winner = calcWinner(squares);
     let status;
     if (winner) {
       status = `Winner is ${winner}`;
@@ -158,21 +123,14 @@ class Game extends React.Component {
     return (
       <div className='game'>
         <div className='game-boader'>
-          <Board current={history[current].squares} onClick={(i) => this.handleClick(i)} />
+          <Board current={squares} onClick={(i) => this.handleClick(i)} />
         </div>
         <div className='game-info'>
           <div className='status'>{status}</div>
-          <ol className=''>
-            {/* <li className='history' onClick={() => this.showRecord(1)}>
-              记录1
-            </li>
-            <li className='history' onClick={() => this.showRecord(2)}>
-              记录2
-            </li>
-            <li className='history' onClick={() => this.showRecord(3)}>
-              记录3
-            </li> */}
-          </ol>
+          <button className='restart' onClick={() => this.restartGame()}>
+            重新开始
+          </button>
+          <ol className=''>{historyList}</ol>
         </div>
       </div>
     );
