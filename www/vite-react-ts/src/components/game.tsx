@@ -9,7 +9,9 @@ function Square(props: { onCLick: () => void; value: null | string }) {
   );
 }
 
-function calcWinner(squares: any[]) {
+// type WinLine = [number, number, number];
+
+function calcWinner(squares: string[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -33,8 +35,8 @@ function calcWinner(squares: any[]) {
 }
 
 interface BoardProps {
-  current: any;
-  onClick: any;
+  current: string[];
+  onClick: Function;
 }
 
 class Board extends React.Component<BoardProps> {
@@ -56,10 +58,13 @@ class Board extends React.Component<BoardProps> {
 }
 
 interface GameProps {}
+interface Record {
+  squares: string[];
+}
 interface GameState {
-  history: any;
-  step: any;
-  xIsNext: any;
+  history: Record[];
+  step: number;
+  xIsNext: boolean;
 }
 
 class Game extends React.Component<GameProps, GameState> {
@@ -68,7 +73,7 @@ class Game extends React.Component<GameProps, GameState> {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null),
+          squares: Array(9).fill(''),
         },
       ],
       step: 0,
@@ -76,7 +81,7 @@ class Game extends React.Component<GameProps, GameState> {
     };
   }
 
-  handleClick(i: string | number) {
+  handleClick(i: number) {
     const { history, step } = this.state;
     const squares = history[step].squares.slice();
     const winner = calcWinner(squares);
@@ -87,7 +92,7 @@ class Game extends React.Component<GameProps, GameState> {
   }
 
   showRecord(i: number) {
-    this.setState({ step: i, xIsNext: i % 2 });
+    this.setState({ step: i, xIsNext: !!(i % 2) });
   }
 
   restartGame() {

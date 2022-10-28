@@ -1,6 +1,9 @@
 import React from 'react';
 
-class Demo1 extends React.Component {
+interface DemoProps {
+  name: string;
+}
+class Demo1 extends React.Component<DemoProps> {
   render() {
     return (
       <div className='shopping-list'>
