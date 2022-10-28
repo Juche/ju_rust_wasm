@@ -73,49 +73,29 @@ const history = [
 ];
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  }
-  handleClick(i) {
-    const squares = this.state.squares.slice();
-    const winner = calcWinner(squares);
-    if (winner || squares[i]) return;
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
-  }
-
-  showRecord(i) {
-    this.setState({ squares: history[i].squares });
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     squares: Array(9).fill(null),
+  //     xIsNext: true,
+  //   };
+  // }
 
   renderSquare(i) {
-    return <Square value={this.state.squares[i]} onCLick={() => this.handleClick(i)}></Square>;
+    return <Square value={this.props.current[i]} onCLick={() => this.props.onClick(i)}></Square>;
   }
 
   render() {
-    const winner = calcWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = `Winner is ${winner}`;
-    } else {
-      status = `Next Player ${this.state.xIsNext ? 'X' : 'O'}`;
-    }
+    // const winner = calcWinner(this.state.squares);
+    // let status;
+    // if (winner) {
+    //   status = `Winner is ${winner}`;
+    // } else {
+    //   status = `Next Player ${this.state.xIsNext ? 'X' : 'O'}`;
+    // }
     return (
       <div className='boader-ctn'>
-        <div className='status'>{status}</div>
-        <div className='history' onClick={() => this.showRecord(1)}>
-          记录1
-        </div>
-        <div className='history' onClick={() => this.showRecord(2)}>
-          记录2
-        </div>
-        <div className='history' onClick={() => this.showRecord(3)}>
-          记录3
-        </div>
+        {/* <div className='status'>{status}</div> */}
         <div className='boader-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -137,19 +117,66 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      current: 0,
+      xIsNext: true,
+    };
+  }
+
+  showRecord(i) {
+    this.setState({ squares: history[i].squares });
+  }
+
+  handleClick(i) {
+    const { history, current } = this.state;
+    const squares = history[current].squares.slice();
+    const winner = calcWinner(squares);
+    if (winner || squares[i]) return;
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    const _history = history.concat({ squares: squares });
+    this.setState({ history: _history, current: current + 1, xIsNext: !this.state.xIsNext });
+  }
+
   render() {
+    const { history, current } = this.state;
+
+    const winner = calcWinner(history[current].squares);
+    let status;
+    if (winner) {
+      status = `Winner is ${winner}`;
+    } else {
+      status = `Next Player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    }
+
     return (
       <div className='game'>
         <div className='game-boader'>
-          <Board />
+          <Board current={history[current].squares} onClick={(i) => this.handleClick(i)} />
         </div>
         <div className='game-info'>
-          <div className=''></div>
-          <ol className=''></ol>
+          <div className='status'>{status}</div>
+          <ol className=''>
+            {/* <li className='history' onClick={() => this.showRecord(1)}>
+              记录1
+            </li>
+            <li className='history' onClick={() => this.showRecord(2)}>
+              记录2
+            </li>
+            <li className='history' onClick={() => this.showRecord(3)}>
+              记录3
+            </li> */}
+          </ol>
         </div>
       </div>
     );
   }
 }
 
-export { Square, Board, Game };
+export { Game };
