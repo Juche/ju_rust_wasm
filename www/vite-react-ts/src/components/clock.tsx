@@ -15,6 +15,7 @@ interface ClockState {
 }
 
 class Clock extends React.Component<ClockProps, ClockState> {
+  timer: number | undefined;
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -22,18 +23,28 @@ class Clock extends React.Component<ClockProps, ClockState> {
     };
   }
 
-  ticker() {
-    setTimeout(() => {
-      this.setState({ time: new Date() });
-      // console.log('time: ', this.state.time);
-    }, 1000);
+  componentDidMount(): void {
+    this.timer = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillMount(): void {
+    clearInterval(this.timer);
+  }
+
+  tick() {
+    this.setState({ time: new Date() });
+    console.log('time: ', this.state.time);
   }
 
   render() {
-    this.ticker();
     const { time } = this.state;
     const formatTime = `${time.toLocaleDateString()} ${time.toLocaleTimeString()}`;
-    return <Timer time={formatTime} />;
+    return (
+      <div className=''>
+        <Timer time={formatTime} />
+        <p>{formatTime}</p>
+      </div>
+    );
   }
 }
 
