@@ -32,4 +32,12 @@ input
 - [ ] When someone wins, highlight the three squares that caused the win.
 - [ ] When no one wins, display a message about the result being a draw.
 
+---
+
 class & proto
+Next.js
+Deno
+WASM yew Tauri(客户端) wasm-pack/trunk(打包)
+JS 基础设施的未来 —— Rust，全栈 —— Go，AI —— Python，Flutter —— Dart
+微前端 single-spa / qiankun / MicroApp
+在虚拟化和元宇宙时代未到之前，音视频领域还是这个时代的核心。

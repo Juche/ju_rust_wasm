@@ -92,7 +92,7 @@ class Game extends React.Component<GameProps, GameState> {
   }
 
   showRecord(i: number) {
-    this.setState({ step: i, xIsNext: !!(i % 2) });
+    this.setState({ step: i, xIsNext: !(i % 2) });
   }
 
   restartGame() {
