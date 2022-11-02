@@ -2,12 +2,14 @@ import { Game } from './components/game';
 import Intro from './components/intro';
 import { Demo1 } from './components/demos';
 import { Clock } from './components/clock';
+import { PromiseState } from './components/xstate';
 
 function App() {
   return (
     <div className='app-ctn'>
-      <Clock />
-      <Game />
+      {/* <Clock /> */}
+      {/* <Game /> */}
+      <PromiseState />
       {/* <Demo1 name='fruits' /> */}
       {/* <Intro /> */}
     </div>

@@ -34,10 +34,23 @@ input
 
 ---
 
-class & proto
-Next.js
 Deno
+
+React
+class & proto
+
+Next.js Gatsby Nuxt
+`Gatsby` 不仅仅是一个静态网站生成器，它更是一个**渐进式 Web 应用生成器** 。它的使用背景与 CRA 完全不同。通过 Gatsby 建立的网站，很容易搜索引擎检索到，而且页面的渲染性能非常好。完美支持个人网站、博客、文档网站（PS: React 的官方文档使用的就是 Gatsby），甚至是电子商务网站。而且 Gatsby 可以在构建时通过 GraphQL 获取数据。
+`Next.js`适用于高动态或者面向用户的网页，这些页面需要优秀的 SEO，并且可能每分每秒都在变化。
+https://nextjs.org/showcase
+https://www.gatsbyjs.com/showcase/
+
+数据库
+Strapi => GraphQL Restful
+
+Xstate
+
 WASM yew Tauri(客户端) wasm-pack/trunk(打包)
 JS 基础设施的未来 —— Rust，全栈 —— Go，AI —— Python，Flutter —— Dart
-微前端 single-spa / qiankun / MicroApp
+微前端 single-spa / qiankun / MicroApp / medusa
 在虚拟化和元宇宙时代未到之前，音视频领域还是这个时代的核心。

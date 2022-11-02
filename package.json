@@ -20,7 +20,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@pack/life_game": "workspace:^1.0.0"
+    "@pack/life_game": "workspace:^1.0.0",
+    "xstate": "^4.34.0"
   },
   "devDependencies": {
     "typescript": "^4.6.3",
