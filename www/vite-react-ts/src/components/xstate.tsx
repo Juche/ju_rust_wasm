@@ -1,37 +1,5 @@
-import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/react';
-
-const promiseMachine = createMachine({
-  id: 'promise',
-  initial: 'idle',
-  states: {
-    idle: {
-      on: {
-        NEW: 'pending',
-      },
-    },
-    pending: {
-      on: {
-        RESOLVE: 'resolved',
-        REJECT: 'rejected',
-        RESET: 'idle',
-      },
-    },
-    resolved: {
-      // type: 'final',
-      on: {
-        RESET: 'idle',
-      },
-    },
-    rejected: {
-      // type: 'final',
-      on: {
-        RETRY: 'pending',
-        RESET: 'idle',
-      },
-    },
-  },
-});
+import { promiseMachine } from '../states';
 
 export function PromiseState() {
   const [state, send] = useMachine(promiseMachine);
