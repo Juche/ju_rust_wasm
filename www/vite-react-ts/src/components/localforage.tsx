@@ -53,7 +53,6 @@ function handleData(fnName: forageFn, ...[k, v]: HandleDataParams) {
   })();
 }
 
-interface EmptyProps {}
 interface StorageState {
   k: string;
   v: any;
@@ -70,8 +69,9 @@ export class Storage extends React.Component<EmptyProps, StorageState> {
     };
   }
 
-  updateFormState(e: ChangeEvent, key: string) {
-    this.setState({ [key]: e.target.value });
+  updateFormState(e: ChangeEvent) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -80,13 +80,13 @@ export class Storage extends React.Component<EmptyProps, StorageState> {
       <div className='ctn'>
         <div className='form'>
           <div className='form-item'>
-            KEY: <input value={k} onChange={(e) => this.updateFormState(e, 'k')} />
+            KEY: <input name='k' value={k} onChange={(e) => this.updateFormState(e)} />
           </div>
           <div className='form-item'>
-            VAL: <input value={v} onChange={(e) => this.updateFormState(e, 'v')} />
+            VAL: <input name='v' value={v} onChange={(e) => this.updateFormState(e)} />
           </div>
           <div className='form-item'>
-            NUM: <input value={n} onChange={(e) => this.updateFormState(e, 'n')} />
+            NUM: <input name='n' value={n} onChange={(e) => this.updateFormState(e)} />
           </div>
         </div>
         <div className='btn-group'>

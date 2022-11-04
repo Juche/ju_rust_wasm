@@ -57,7 +57,6 @@ class Board extends React.Component<BoardProps> {
   }
 }
 
-interface GameProps {}
 interface Record {
   squares: string[];
 }
@@ -67,8 +66,8 @@ interface GameState {
   xIsNext: boolean;
 }
 
-class Game extends React.Component<GameProps, GameState> {
-  constructor(props: {} | Readonly<{}>) {
+class Game extends React.Component<EmptyProps, GameState> {
+  constructor(props: EmptyProps) {
     super(props);
     this.state = {
       history: [

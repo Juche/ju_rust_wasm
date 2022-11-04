@@ -9,14 +9,13 @@ function Timer(props: any) {
   );
 }
 
-interface ClockProps {}
 interface ClockState {
   time: Date;
 }
 
-class Clock extends React.Component<ClockProps, ClockState> {
+class Clock extends React.Component<EmptyProps, ClockState> {
   timer: number | undefined;
-  constructor(props: {}) {
+  constructor(props: EmptyProps) {
     super(props);
     this.state = {
       time: new Date(),
