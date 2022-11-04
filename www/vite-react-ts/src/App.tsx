@@ -11,6 +11,7 @@ function App() {
       {/* <Clock /> */}
       {/* <Game /> */}
       <PromiseState />
+      <br />
       <Storage />
       {/* <Demo1 name='fruits' /> */}
       {/* <Intro /> */}
