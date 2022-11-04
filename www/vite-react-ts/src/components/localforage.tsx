@@ -59,6 +59,13 @@ interface StorageState {
   n: number | string;
 }
 
+// interface InputChangeEvent extends ChangeEvent {
+//   target: {
+//     name: string;
+//     value: string;
+//   };
+// }
+
 export class Storage extends React.Component<EmptyProps, StorageState> {
   constructor(props: EmptyProps) {
     super(props);
@@ -69,7 +76,7 @@ export class Storage extends React.Component<EmptyProps, StorageState> {
     };
   }
 
-  updateFormState(e: ChangeEvent) {
+  updateFormState(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
