@@ -10,7 +10,7 @@ function App() {
     <div className='app-ctn'>
       {/* <Clock /> */}
       {/* <Game /> */}
-      <PromiseState />
+      {/* <PromiseState /> */}
       <br />
       <Storage />
       {/* <Demo1 name='fruits' /> */}

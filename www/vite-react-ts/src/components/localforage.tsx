@@ -1,7 +1,5 @@
 import localforage, { clear, getItem, removeItem, setItem, key, iterate } from 'localforage';
-
-const k = 'key1';
-const v = 'val1';
+import React from 'react';
 
 type forageFn =
   | 'getItem'
@@ -55,28 +53,51 @@ function handleData(fnName: forageFn, ...[k, v]: HandleDataParams) {
   })();
 }
 
-export function Storage() {
-  return (
-    <div className='ctn'>
-      <div className='form'>
-        <div className='form-item'>
-          KEY: <input value={k} />
+interface EmptyProps {}
+interface StorageState {
+  k: string | undefined;
+  v: any;
+  n: number | undefined;
+}
+
+// export function Storage() {
+export class Storage extends React.Component<EmptyProps, StorageState> {
+  constructor(props: EmptyProps) {
+    super(props);
+    this.state = {
+      k: undefined,
+      v: undefined,
+      n: undefined,
+    };
+  }
+
+  render() {
+    const { k, v, n } = this.state;
+    return (
+      <div className='ctn'>
+        <div className='form'>
+          <div className='form-item'>
+            KEY: <input value={k} onChange={(e) => this.setState({ k: e.target.value })} />
+          </div>
+          <div className='form-item'>
+            VAL: <input value={v} onChange={(e) => this.setState({ v: e.target.value })} />
+          </div>
+          <div className='form-item'>
+            K_N: <input value={n} onChange={(e) => this.setState({ n: Number(e.target.value) })} />
+          </div>
         </div>
-        <div className='form-item'>
-          VAL: <input value={v} />
+        <br />
+        <div className='btn-group'>
+          <button onClick={() => handleData('setItem', k, v)}>setItem</button>
+          <button onClick={() => handleData('getItem', k)}>getItem</button>
+          <button onClick={() => handleData('removeItem', k)}>removeItem</button>
+          <button onClick={() => handleData('clear')}>clear</button>
+          <button onClick={() => handleData('length')}>length</button>
+          <button onClick={() => handleData('key', n)}>key</button>
+          <button onClick={() => handleData('keys')}>keys</button>
+          <button onClick={() => handleData('iterate')}>iterate</button>
         </div>
       </div>
-      <br />
-      <div className='btn-group'>
-        <button onClick={() => handleData('setItem', k, v)}>setItem</button>
-        <button onClick={() => handleData('getItem', k)}>getItem</button>
-        <button onClick={() => handleData('removeItem', k)}>removeItem</button>
-        <button onClick={() => handleData('clear')}>clear</button>
-        <button onClick={() => handleData('length')}>length</button>
-        <button onClick={() => handleData('key', 0)}>key</button>
-        <button onClick={() => handleData('keys')}>keys</button>
-        <button onClick={() => handleData('iterate')}>iterate</button>
-      </div>
-    </div>
-  );
+    );
+  }
 }
