@@ -36,8 +36,8 @@ input
 
 Deno
 
-React
-class & proto
+React => _路由 & 状态_
+_class & proto_
 
 Next.js Gatsby Nuxt
 `Gatsby` 不仅仅是一个静态网站生成器，它更是一个**渐进式 Web 应用生成器** 。它的使用背景与 CRA 完全不同。通过 Gatsby 建立的网站，很容易搜索引擎检索到，而且页面的渲染性能非常好。完美支持个人网站、博客、文档网站（PS: React 的官方文档使用的就是 Gatsby），甚至是电子商务网站。而且 Gatsby 可以在构建时通过 GraphQL 获取数据。
@@ -45,7 +45,17 @@ Next.js Gatsby Nuxt
 https://nextjs.org/showcase
 https://www.gatsbyjs.com/showcase/
 
-数据库
+_数据库_
+localForage => IndexDB / Web Sql / Localstorage
+默认情况下，localForage 按照以下顺序选择数据仓库的后端驱动：
+IndexedDB
+WebSQL
+localStorage
+如果你想强制使用特定的驱动，可以使用 setDriver()，参数为以下的某一个或多个：
+localforage.INDEXEDDB
+localforage.WEBSQL
+localforage.LOCALSTORAGE
+————————————————
 Strapi => GraphQL Restful
 
 Xstate
@@ -54,3 +64,4 @@ WASM yew Tauri(客户端) wasm-pack/trunk(打包)
 JS 基础设施的未来 —— Rust，全栈 —— Go，AI —— Python，Flutter —— Dart
 微前端 single-spa / qiankun / MicroApp / medusa
 在虚拟化和元宇宙时代未到之前，音视频领域还是这个时代的核心。
+体验使用
