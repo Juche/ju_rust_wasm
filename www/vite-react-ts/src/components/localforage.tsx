@@ -1,5 +1,5 @@
 import localforage, { clear, getItem, removeItem, setItem, key, iterate } from 'localforage';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 type forageFn =
   | 'getItem'
@@ -55,20 +55,23 @@ function handleData(fnName: forageFn, ...[k, v]: HandleDataParams) {
 
 interface EmptyProps {}
 interface StorageState {
-  k: string | undefined;
+  k: string;
   v: any;
-  n: number | undefined;
+  n: number | string;
 }
 
-// export function Storage() {
 export class Storage extends React.Component<EmptyProps, StorageState> {
   constructor(props: EmptyProps) {
     super(props);
     this.state = {
-      k: undefined,
-      v: undefined,
-      n: undefined,
+      k: '',
+      v: '',
+      n: '',
     };
+  }
+
+  updateFormState(e: ChangeEvent, key: string) {
+    this.setState({ [key]: e.target.value });
   }
 
   render() {
@@ -77,16 +80,15 @@ export class Storage extends React.Component<EmptyProps, StorageState> {
       <div className='ctn'>
         <div className='form'>
           <div className='form-item'>
-            KEY: <input value={k} onChange={(e) => this.setState({ k: e.target.value })} />
+            KEY: <input value={k} onChange={(e) => this.updateFormState(e, 'k')} />
           </div>
           <div className='form-item'>
-            VAL: <input value={v} onChange={(e) => this.setState({ v: e.target.value })} />
+            VAL: <input value={v} onChange={(e) => this.updateFormState(e, 'v')} />
           </div>
           <div className='form-item'>
-            K_N: <input value={n} onChange={(e) => this.setState({ n: Number(e.target.value) })} />
+            NUM: <input value={n} onChange={(e) => this.updateFormState(e, 'n')} />
           </div>
         </div>
-        <br />
         <div className='btn-group'>
           <button onClick={() => handleData('setItem', k, v)}>setItem</button>
           <button onClick={() => handleData('getItem', k)}>getItem</button>
