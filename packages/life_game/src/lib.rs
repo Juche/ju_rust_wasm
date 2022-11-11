@@ -10,15 +10,29 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-// #[wasm_bindgen]
-// extern "C" {
-//     fn alert(s: &str);
-// }
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
+    // TODO:console / Math / Date ...
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+    // #[wasm_bindgen(js_namespace = Math)]
+    // fn round(u: &u32);
+}
+
+#[wasm_bindgen]
+pub fn r_alert(name: &str) {
+    alert(&format!("Hello {}! What a nice day!", name));
+}
+
+#[wasm_bindgen]
+pub fn r_log(str: &str) {
+    log(&format!("{}", str));
+}
 
 // #[wasm_bindgen]
-// pub fn greet(name: &str) {
-//     // alert("Hello, ju-rust-wasm!");
-//     alert(&format!("Hello {}! What a nice day!", name));
+// pub fn r_round(num: &u32) {
+//     round(num);
 // }
 
 // extern crate web_sys;
