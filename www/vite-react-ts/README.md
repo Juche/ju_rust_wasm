@@ -65,3 +65,5 @@ JS 基础设施的未来 —— Rust，全栈 —— Go，AI —— Python，Flu
 微前端 single-spa / qiankun / MicroApp / medusa
 在虚拟化和元宇宙时代未到之前，音视频领域还是这个时代的核心。
 体验使用
+
+effect / watchEffect / watch
