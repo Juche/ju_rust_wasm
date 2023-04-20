@@ -14,12 +14,19 @@
 </template>
 
 <script lang="ts" setup>
-  import init, { Universe } from '@pack/life_game';
+  import init, { r_alert, r_log, Universe } from '@pack/life_game';
   // import { ref } from 'vue';
   // const gameCtn = ref();
   init().then(() => {
     // alert('Welcome to Universe');
     // debugger;
+
+    r_alert('host function alert');
+    console.log(`🚀 ~ createdUniverse ~ r_alert`, r_alert);
+    r_log('host function console log');
+
+    // const randomNum = r_round();
+    // console.log(`🚀 ~ init ~ randomNum`, randomNum);
 
     // 设置每个细胞的大小
     const CELL_SIZE = 1; // px

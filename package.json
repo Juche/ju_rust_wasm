@@ -19,7 +19,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@pack/life_game": "workspace:^1.0.0"
+    "@pack/life_game": "workspace:^1.0.0",
+    "localforage": "^1.10.0",
+    "xstate": "^4.34.0"
   },
   "devDependencies": {
     "typescript": "^5.0.4",
