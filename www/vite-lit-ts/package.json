@@ -16,6 +16,6 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "lit": "^2.0.2"
+    "lit": "^2.7.2"
   }
 }
